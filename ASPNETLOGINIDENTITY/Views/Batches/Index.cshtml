@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<table id="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+</table>
+
+
+<link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            debugger;
+            $("#table").DataTable({
+                "ajax": {
+                    "url": "/Batches/List",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "id" },
+                    {
+                        "data": "start_Date", "render": function (a){
+                            return moment(a).format('DD/MM/YYYY');
+                        }
+                    },
+                    {
+                        "data": "end_Date", "render": function (a){
+                            return moment(a).format('DD/MM/YYYY');
+                        }
+                    }
+                ]
+
+            })
+        })
+    </script>
+}
